@@ -1,21 +1,17 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, TouchableNativeFeedback, Platform } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import TouchableComponent from './TouchableComponent';
 
 const CategoryGridTile = props => {
-    let TouchableComp = TouchableOpacity;
-    if (Platform.OS === 'android' && Platform.Version >= 21) {
-        TouchableComp = TouchableNativeFeedback;
-    }
-
     return (
         <View style={styles.gridItem}>
-            <TouchableComp onPress={props.onSelect} style={{flex: 1}}> 
+            <TouchableComponent onPress={props.onSelect} style={{flex: 1}}> 
                 <View style={{...styles.container, ...{backgroundColor: props.color}}}>
                     <Text style={styles.title} numberOfLines={2}>
                         {props.title}
                     </Text>
                 </View>
-            </TouchableComp>
+            </TouchableComponent>
         </View>
     )
 }
