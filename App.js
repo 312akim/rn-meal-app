@@ -22,7 +22,7 @@ export default function App() {
     return (
       <AppLoading 
         startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(false)}
+        onFinish={() => setFontLoaded(true)}
         onError={() => console.log("error loading fonts!")}
       />
     )
