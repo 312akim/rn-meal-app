@@ -22,7 +22,7 @@ export default function App() {
     return (
       <AppLoading 
         startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}
+        onFinish={() => setFontLoaded(false)}
         onError={() => console.log("error loading fonts!")}
       />
     )
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <MealsNavigator />
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
