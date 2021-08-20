@@ -11,6 +11,15 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import Colors from '../themes/Colors';
 import { Ionicons } from '@expo/vector-icons';
 
+const defaultStackNavOptions = {
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+        },
+        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+    }
+}
+
 // React component w/ Navigation built in. Need to wrap with createAppContainer
 const MealsNavigator = createStackNavigator({
     // Custom key: Pointer to React Component
@@ -22,14 +31,16 @@ const MealsNavigator = createStackNavigator({
     },
     CategoryMeals: CategoryMealsScreen,
     MealDetail: MealDetailScreen,
-}, {
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+}, defaultStackNavOptions);
+
+const FavNavigator = createStackNavigator({
+    Favorites: {
+        screen: FavoritesScreen,
+    },
+    MealDetail: {
+        screen: MealDetailScreen,
     }
-});
+}, defaultStackNavOptions)
 
 const tabScreenConfig = {
     Meals: {screen: MealsNavigator, navigationOptions: {
@@ -44,7 +55,7 @@ const tabScreenConfig = {
         }
         */
     }},
-    Favorites: {screen: FavoritesScreen, navigationOptions: {
+    Favorites: {screen: FavNavigator, navigationOptions: {
         tabBarIcon: (tabInfo) => {
             return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
         },
