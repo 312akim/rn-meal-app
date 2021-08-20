@@ -2,14 +2,16 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import Colors from '../themes/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import FiltersScreen from '../screens/FiltersScreen';
 
 const defaultStackNavOptions = {
     defaultNavigationOptions: {
@@ -73,4 +75,14 @@ const MealsFavTabNavigator = Platform.OS === 'android' ? createMaterialBottomTab
     }
 });
 
-export default createAppContainer(MealsFavTabNavigator);
+// Adds header, only 1 screen stack
+const FilterNavigator = createStackNavigator({
+    Filters: FiltersScreen
+}, defaultStackNavOptions)
+
+const MainNavigator = createDrawerNavigator({
+    MealsFavs: MealsFavTabNavigator,
+    Filters: FilterNavigator
+})
+
+export default createAppContainer(MainNavigator);
