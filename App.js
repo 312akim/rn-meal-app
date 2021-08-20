@@ -4,9 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import MealsNavigator from './navigation/MealsNavigator';
+import { enableScreens } from 'react-native-screens';
 
-const fetchFonts = () => {
-  Font.loadAsync({
+enableScreens();
+
+const fetchFonts = async() => {
+  await Font.loadAsync({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
   })
@@ -28,7 +31,7 @@ export default function App() {
   return (
     <MealsNavigator />
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
