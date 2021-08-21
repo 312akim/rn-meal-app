@@ -12,11 +12,18 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import Colors from '../themes/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import FiltersScreen from '../screens/FiltersScreen';
+import { Text } from 'react-native';
 
 const defaultStackNavOptions = {
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+        },
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
+        },
+        headerBackTitleStyle: {
+            fontFamily: 'open-sans',
         },
         headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
     }
@@ -56,11 +63,13 @@ const tabScreenConfig = {
             backgroundColor: Colors.primaryColor
         }
         */
+       tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Meals</Text> : 'Meals'
     }},
     Favorites: {screen: FavNavigator, navigationOptions: {
         tabBarIcon: (tabInfo) => {
             return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
         },
+        tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Favorites</Text> : 'Favorites',
         tabBarColor: Colors.accentColor
     }}
 }
@@ -71,6 +80,9 @@ const MealsFavTabNavigator = Platform.OS === 'android' ? createMaterialBottomTab
 }) : createBottomTabNavigator(tabScreenConfig,
 {
     tabBarOptions: {
+        labelStyle: {
+            fontFamily: 'open-sans-bold'
+        },
         activeTintColor: Colors.accentColor,
     }
 });
