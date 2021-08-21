@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Switch, Platform } from 'react-native';
 import Colors from '../themes/Colors'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -26,6 +26,22 @@ const FiltersScreen = props => {
     const [isLactoseFree, setIsLactoseFree] = useState(false);
     const [isVegan, setIsVegan] = useState(false);
     const [isVegetarian, setIsVegetarian] = useState(false);
+
+    // useCallback - Cached by react, only recreated if dependencies change
+    // If saveFilters is updated due to state update, useEffect updates due to saveFilters change, and updates params
+    const saveFilters = useCallback(() => {
+        const appliedFilters = {
+            glutenFree: isGlutenFree,
+            lactoseFree: isLactoseFree,
+            vegan: isVegan,
+            vegetarian: isVegetarian
+        };
+        console.log(appliedFilters);
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian])
+
+    useEffect(() => {
+        props.navigation.setParams({save: saveFilters});
+    }, [saveFilters]);
 
     return (
         <View style={styles.screen}>
@@ -61,6 +77,14 @@ FiltersScreen.navigationOptions = (navData) => {
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item title="Menu" iconName={'ios-menu'} onPress={() => {
                     navData.navigation.toggleDrawer();
+                }}/>
+            </HeaderButtons>
+        ),
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item title="Save" iconName={'ios-save'} onPress={() => {
+                    // Need extra parantheses to execute saveFilter from save param
+                    navData.navigation.getParam('save')();
                 }}/>
             </HeaderButtons>
         )

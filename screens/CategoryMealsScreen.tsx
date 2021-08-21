@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
 import MealList from '../components/MealList';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
 
@@ -21,9 +20,5 @@ CategoryMealsScreen.navigationOptions = (navigationData) => {
         headerTitle: selectedCategory.title,
     }
 }
-
-const styles = StyleSheet.create({
-
-});
 
 export default CategoryMealsScreen;
